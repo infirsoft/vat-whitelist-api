@@ -8,25 +8,19 @@ White List API / API Wykazu podatników VAT / Biała lista podatników VAT
 
 ### Methods
 ```bash
-searchNip( string $nip , string $date ) : array
-searchNips( array $nips , string $date ) : array
-searchRegon( string $regon , string $date ) : array
-searchRegons( array $regons , string $date ) : array
-searchBankAccount( string $bankAccount , string $date ) : array
-searchBankAccounts( array $bankAccounts , string $date ) : array
-checkNipBankAccount( string $nip , string $bankAccount , string $date ) : array
-checkRegonBankAccount( string $regon , string $bankAccount , string $date ) : array
-getResponse( ) : array|null
-getResponseHttpCode ( ) : int|null
+searchNip( string $nip , string $date ) : EntityResponse
+searchNips( array $nips , string $date ) : EntityListResponse
+searchRegon( string $regon , string $date ) : EntityResponse
+searchRegons( array $regons , string $date ) : EntityListResponse
+searchBankAccount( string $bankAccount , string $date ) : EntityListResponse
+searchBankAccounts( array $bankAccounts , string $date ) : EntityListResponse
+checkNipBankAccount( string $nip , string $bankAccount , string $date ) : EntityCheckResponse
+checkRegonBankAccount( string $regon , string $bankAccount , string $date ) : EntityCheckResponse
 ```
 
 ### Usage
 ```php
-<?php
-
-require('WhiteListApi.php');
-
-$wl = new WhiteListApi;
-$wl->searchNip('5252344078', '2021-01-01');
-print_r($wl->getResponse());
+$client = new WhiteListApiClient;
+$response = $client->searchNip('5252344078', '2021-01-01');
+echo $response->result->subject->name; // GOOGLE POLAND SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ
 ```
