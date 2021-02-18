@@ -4,6 +4,6 @@ namespace WhiteListApi\Contents;
 
 class EntityListResponse
 {
-  /** @var EntityList|null */
-  public $result;
+    /** @var EntityList|null */
+    public $result;
 }

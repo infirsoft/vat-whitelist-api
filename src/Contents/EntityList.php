@@ -4,6 +4,12 @@ namespace WhiteListApi\Contents;
 
 class EntityList
 {
-  /** @var array[Entity]|null */
-  public $subjects;
+    /** @var Entity[]|null */
+    public $subjects;
+
+    /** @var string|null */
+    public $requestId;
+
+    /** @var string|null */
+    public $requestDateTime;
 }

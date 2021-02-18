@@ -2,10 +2,10 @@
 
 namespace WhiteListApi\Contents;
 
-class EntityItem
+class EntryList
 {
-    /** @var Entity|null */
-    public $subject;
+    /** @var Entry[] */
+    public $entries;
 
     /** @var string|null */
     public $requestId;

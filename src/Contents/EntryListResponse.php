@@ -2,8 +2,8 @@
 
 namespace WhiteListApi\Contents;
 
-class EntityCheckResponse
+class EntryListResponse
 {
-    /** @var EntityCheck|null */
+    /** @var EntryList|null */
     public $result;
 }
