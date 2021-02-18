@@ -6,6 +6,7 @@ use WhiteListApi\Contents\EntityCheckResponse;
 use WhiteListApi\Contents\EntityListResponse;
 use WhiteListApi\Contents\EntityResponse;
 use WhiteListApi\Contents\EntryListResponse;
+use WhiteListApi\Contents\Error;
 
 class WhiteListApiClient implements WhiteListApiInterface
 {
@@ -32,10 +33,9 @@ class WhiteListApiClient implements WhiteListApiInterface
     /**
      * @param string $bankAccount
      * @param string $date
-     * @return EntityListResponse
-     * @throws WhiteListApiException
+     * @return EntityListResponse|Error
      */
-    public function searchBankAccount(string $bankAccount, string $date): EntityListResponse
+    public function searchBankAccount(string $bankAccount, string $date)
     {
         $pathParams = array(
             "{bank-account}" => $bankAccount,
@@ -52,10 +52,9 @@ class WhiteListApiClient implements WhiteListApiInterface
     /**
      * @param string[] $bankAccounts
      * @param string $date
-     * @return EntryListResponse
-     * @throws WhiteListApiException
+     * @return EntryListResponse|Error
      */
-    public function searchBankAccounts(array $bankAccounts, string $date): EntryListResponse
+    public function searchBankAccounts(array $bankAccounts, string $date)
     {
         $pathParams = array(
             "{bank-accounts}" => implode(',', $bankAccounts),
@@ -73,10 +72,9 @@ class WhiteListApiClient implements WhiteListApiInterface
      * @param string $nip
      * @param string $bankAccount
      * @param string $date
-     * @return EntityCheckResponse
-     * @throws WhiteListApiException
+     * @return EntityCheckResponse|Error
      */
-    public function checkNipBankAccount(string $nip, string $bankAccount, string $date): EntityCheckResponse
+    public function checkNipBankAccount(string $nip, string $bankAccount, string $date)
     {
         $pathParams = array(
             "{nip}" => $nip,
@@ -95,10 +93,9 @@ class WhiteListApiClient implements WhiteListApiInterface
      * @param string $regon
      * @param string $bankAccount
      * @param string $date
-     * @return EntityCheckResponse
-     * @throws WhiteListApiException
+     * @return EntityCheckResponse|Error
      */
-    public function checkRegonBankAccount(string $regon, string $bankAccount, string $date): EntityCheckResponse
+    public function checkRegonBankAccount(string $regon, string $bankAccount, string $date)
     {
         $pathParams = array(
             "{regon}" => $regon,
@@ -116,10 +113,9 @@ class WhiteListApiClient implements WhiteListApiInterface
     /**
      * @param string $nip
      * @param string $date
-     * @return EntityResponse
-     * @throws WhiteListApiException
+     * @return EntityResponse|Error
      */
-    public function searchNip(string $nip, string $date): EntityResponse
+    public function searchNip(string $nip, string $date)
     {
         $pathParams = array(
             "{nip}" => $nip
@@ -136,10 +132,9 @@ class WhiteListApiClient implements WhiteListApiInterface
     /**
      * @param string[] $nips
      * @param string $date
-     * @return EntryListResponse
-     * @throws WhiteListApiException
+     * @return EntryListResponse|Error
      */
-    public function searchNips(array $nips, string $date): EntryListResponse
+    public function searchNips(array $nips, string $date)
     {
         $pathParams = array(
             "{nips}" => implode(',', $nips)
@@ -156,10 +151,9 @@ class WhiteListApiClient implements WhiteListApiInterface
     /**
      * @param string $regon
      * @param string $date
-     * @return EntityResponse
-     * @throws WhiteListApiException
+     * @return EntityResponse|Error
      */
-    public function searchRegon(string $regon, string $date): EntityResponse
+    public function searchRegon(string $regon, string $date)
     {
         $pathParams = array(
             "{regon}" => $regon
@@ -176,10 +170,9 @@ class WhiteListApiClient implements WhiteListApiInterface
     /**
      * @param string[] $regons
      * @param string $date
-     * @return EntryListResponse
-     * @throws WhiteListApiException
+     * @return EntryListResponse|Error
      */
-    public function searchRegons(array $regons, string $date): EntryListResponse
+    public function searchRegons(array $regons, string $date)
     {
         $pathParams = array(
             "{regons}" => implode(',', $regons)
@@ -199,7 +192,6 @@ class WhiteListApiClient implements WhiteListApiInterface
      * @param array $pathParams
      * @param array $queryParams
      * @return bool|mixed|string
-     * @throws WhiteListApiException
      */
     private function request(string $method, string $path, array $pathParams, array $queryParams)
     {
@@ -220,23 +212,20 @@ class WhiteListApiClient implements WhiteListApiInterface
         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
 
-        switch ($httpCode) {
-            case 200:
-                return $response;
-            default:
-                throw new WhiteListApiException;
-        }
+        return $response;
     }
 
     /**
-     * @param string $json
-     * @param string $class
+     * @param $response
+     * @param $class
      * @return mixed
      */
-    private function cast(string $json, string $class)
+    private function cast($response, $class)
     {
+        if(!($decoded = json_decode($response))) return false;
+        $class = (isset($decoded->code) && isset($decoded->message)) ? Error::class : $class;
         $obj = new $class;
-        foreach (json_decode($json) as $k => $v) {
+        foreach ($decoded as $k => $v) {
             $obj->{$k} = $v;
         }
         return $obj;
