@@ -2,7 +2,7 @@
 
 namespace WhiteListApi\Contents;
 
-class Entity
+class Entity extends Content
 {
     /** @var string */
     public $name;
@@ -63,4 +63,11 @@ class Entity
 
     /** @var boolean|null */
     public $hasVirtualAccounts;
+
+    protected function setup()
+    {
+        $this->castArray('representatives', EntityPerson::class);
+        $this->castArray('authorizedClerks', EntityPerson::class);
+        $this->castArray('partners', EntityPerson::class);
+    }
 }

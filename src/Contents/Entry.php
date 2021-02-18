@@ -2,7 +2,7 @@
 
 namespace WhiteListApi\Contents;
 
-class Entry
+class Entry extends Content
 {
     /** @var string */
     public $identifier;
@@ -12,4 +12,10 @@ class Entry
 
     /** @var Error|null */
     public $error;
+
+    protected function setup()
+    {
+        $this->castArray('subjects', Entity::class);
+        $this->cast('error', Error::class);
+    }
 }

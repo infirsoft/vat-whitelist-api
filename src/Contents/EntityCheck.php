@@ -2,7 +2,7 @@
 
 namespace WhiteListApi\Contents;
 
-class EntityCheck
+class EntityCheck extends Content
 {
     /** @var string|null */
     public $accountAssigned;

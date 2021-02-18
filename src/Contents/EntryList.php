@@ -2,7 +2,7 @@
 
 namespace WhiteListApi\Contents;
 
-class EntryList
+class EntryList extends Content
 {
     /** @var Entry[] */
     public $entries;
@@ -12,4 +12,9 @@ class EntryList
 
     /** @var string|null */
     public $requestDateTime;
+
+    protected function setup()
+    {
+        $this->castArray('entries', Entry::class);
+    }
 }

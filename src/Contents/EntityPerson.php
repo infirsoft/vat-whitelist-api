@@ -2,7 +2,7 @@
 
 namespace WhiteListApi\Contents;
 
-class EntityPerson
+class EntityPerson extends Content
 {
     /** @var string|null */
     public $companyName;

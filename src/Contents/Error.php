@@ -2,7 +2,7 @@
 
 namespace WhiteListApi\Contents;
 
-class Error
+class Error extends Content
 {
     /** @var string */
     public $code;

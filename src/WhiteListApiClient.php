@@ -222,13 +222,9 @@ class WhiteListApiClient implements WhiteListApiInterface
      */
     private function cast($response, $class)
     {
-        if(!($decoded = json_decode($response))) return false;
+        if (!($decoded = json_decode($response))) return false;
         $class = (isset($decoded->code) && isset($decoded->message)) ? Error::class : $class;
-        $obj = new $class;
-        foreach ($decoded as $k => $v) {
-            $obj->{$k} = $v;
-        }
-        return $obj;
+        return new $class($decoded);
     }
 
 }

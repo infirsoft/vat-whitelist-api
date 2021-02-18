@@ -2,7 +2,7 @@
 
 namespace WhiteListApi\Contents;
 
-class EntityList
+class EntityList extends Content
 {
     /** @var Entity[]|null */
     public $subjects;
@@ -12,4 +12,9 @@ class EntityList
 
     /** @var string|null */
     public $requestDateTime;
+
+    protected function setup()
+    {
+        $this->castArray('subjects', Entity::class);
+    }
 }
