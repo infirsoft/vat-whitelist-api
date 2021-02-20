@@ -15,7 +15,7 @@ class WhiteListApiClient implements WhiteListApiInterface
         'PROD' => 'https://wl-api.mf.gov.pl',
     ];
 
-    private $Environment;
+    private $environment;
 
     /**
      * Client constructor.
@@ -27,7 +27,7 @@ class WhiteListApiClient implements WhiteListApiInterface
         if (!array_key_exists($environment, self::API_URL)) {
             throw new WhiteListApiException('Wrong environment');
         }
-        $this->Environment = $environment;
+        $this->environment = $environment;
     }
 
     /**
@@ -37,12 +37,12 @@ class WhiteListApiClient implements WhiteListApiInterface
      */
     public function searchBankAccount(string $bankAccount, string $date)
     {
-        $pathParams = array(
+        $pathParams = [
             "{bank-account}" => $bankAccount,
-        );
-        $queryParams = array(
+        ];
+        $queryParams = [
             'date' => $date
-        );
+        ];
         return $this->cast(
             $this->request('GET', '/api/search/bank-account/{bank-account}', $pathParams, $queryParams),
             EntityListResponse::class
@@ -56,12 +56,12 @@ class WhiteListApiClient implements WhiteListApiInterface
      */
     public function searchBankAccounts(array $bankAccounts, string $date)
     {
-        $pathParams = array(
+        $pathParams = [
             "{bank-accounts}" => implode(',', $bankAccounts),
-        );
-        $queryParams = array(
+        ];
+        $queryParams = [
             'date' => $date
-        );
+        ];
         return $this->cast(
             $this->request('GET', '/api/search/bank-accounts/{bank-accounts}', $pathParams, $queryParams),
             EntryListResponse::class
@@ -76,13 +76,13 @@ class WhiteListApiClient implements WhiteListApiInterface
      */
     public function checkNipBankAccount(string $nip, string $bankAccount, string $date)
     {
-        $pathParams = array(
+        $pathParams = [
             "{nip}" => $nip,
             "{bank-account}" => $bankAccount,
-        );
-        $queryParams = array(
+        ];
+        $queryParams = [
             'date' => $date
-        );
+        ];
         return $this->cast(
             $this->request('GET', '/api/check/nip/{nip}/bank-account/{bank-account}', $pathParams, $queryParams),
             EntityCheckResponse::class
@@ -97,13 +97,13 @@ class WhiteListApiClient implements WhiteListApiInterface
      */
     public function checkRegonBankAccount(string $regon, string $bankAccount, string $date)
     {
-        $pathParams = array(
+        $pathParams = [
             "{regon}" => $regon,
             "{bank-account}" => $bankAccount,
-        );
-        $queryParams = array(
+        ];
+        $queryParams = [
             'date' => $date
-        );
+        ];
         return $this->cast(
             $this->request('GET', '/api/check/regon/{regon}/bank-account/{bank-account}', $pathParams, $queryParams),
             EntityCheckResponse::class
@@ -117,12 +117,12 @@ class WhiteListApiClient implements WhiteListApiInterface
      */
     public function searchNip(string $nip, string $date)
     {
-        $pathParams = array(
+        $pathParams = [
             "{nip}" => $nip
-        );
-        $queryParams = array(
+        ];
+        $queryParams = [
             'date' => $date
-        );
+        ];
         return $this->cast(
             $this->request('GET', '/api/search/nip/{nip}', $pathParams, $queryParams),
             EntityResponse::class
@@ -136,12 +136,12 @@ class WhiteListApiClient implements WhiteListApiInterface
      */
     public function searchNips(array $nips, string $date)
     {
-        $pathParams = array(
+        $pathParams = [
             "{nips}" => implode(',', $nips)
-        );
-        $queryParams = array(
+        ];
+        $queryParams = [
             'date' => $date
-        );
+        ];
         return $this->cast(
             $this->request('GET', '/api/search/nips/{nips}', $pathParams, $queryParams),
             EntryListResponse::class
@@ -155,12 +155,12 @@ class WhiteListApiClient implements WhiteListApiInterface
      */
     public function searchRegon(string $regon, string $date)
     {
-        $pathParams = array(
+        $pathParams = [
             "{regon}" => $regon
-        );
-        $queryParams = array(
+        ];
+        $queryParams = [
             'date' => $date
-        );
+        ];
         return $this->cast(
             $this->request('GET', '/api/search/regon/{regon}', $pathParams, $queryParams),
             EntityResponse::class
@@ -174,12 +174,12 @@ class WhiteListApiClient implements WhiteListApiInterface
      */
     public function searchRegons(array $regons, string $date)
     {
-        $pathParams = array(
+        $pathParams = [
             "{regons}" => implode(',', $regons)
-        );
-        $queryParams = array(
+        ];
+        $queryParams = [
             'date' => $date
-        );
+        ];
         return $this->cast(
             $this->request('GET', '/api/search/regons/{regons}', $pathParams, $queryParams),
             EntryListResponse::class
@@ -195,7 +195,7 @@ class WhiteListApiClient implements WhiteListApiInterface
      */
     private function request(string $method, string $path, array $pathParams, array $queryParams)
     {
-        $url = self::API_URL[$this->Environment] . strtr($path, $pathParams);
+        $url = self::API_URL[$this->environment] . strtr($path, $pathParams);
         $curl = curl_init();
         $queryParams = http_build_query($queryParams);
 
@@ -209,7 +209,6 @@ class WhiteListApiClient implements WhiteListApiInterface
             curl_setopt($curl, CURLOPT_POSTFIELDS, $queryParams);
         }
         $response = curl_exec($curl);
-        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
 
         return $response;
