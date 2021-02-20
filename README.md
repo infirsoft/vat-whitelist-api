@@ -12,7 +12,7 @@ composer require lozynskiadam/whitelistapi
 ```
 
 ### Methods
-```bash
+```php
 searchNip( string $nip , string $date ) : EntityResponse|Error
 searchNips( array $nips , string $date ) : EntryListResponse|Error
 searchRegon( string $regon , string $date ) : EntityResponse|Error
