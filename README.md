@@ -1,6 +1,10 @@
 API Rejestr WL
 ==============
 
+[![Packagist](https://img.shields.io/packagist/l/lozynskiadam/whitelistapi.svg)](https://packagist.org/packages/lozynskiadam/whitelistapi)
+[![Latest Stable Version](https://img.shields.io/packagist/v/lozynskiadam/whitelistapi.svg)](https://packagist.org/packages/lozynskiadam/whitelistapi)
+[![Total Downloads](https://img.shields.io/packagist/dt/lozynskiadam/whitelistapi.svg)](https://packagist.org/packages/lozynskiadam/whitelistapi)
+
 White List API / API Wykazu podatników VAT / Biała lista podatników VAT
 
 API Docs
