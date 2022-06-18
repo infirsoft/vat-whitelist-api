@@ -5,15 +5,14 @@ namespace WhiteListApi\Contents;
 class EntityList extends Content
 {
     /** @var Entity[]|null */
-    public $subjects;
+    public ?array $subjects = null;
 
-    /** @var string|null */
-    public $requestId;
+    public ?string $requestId = null;
 
-    /** @var string|null */
-    public $requestDateTime;
+    public ?string $requestDateTime = null;
 
-    protected function setup()
+
+    protected function setup(): void
     {
         $this->castArray('subjects', Entity::class);
     }

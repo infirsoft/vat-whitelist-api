@@ -5,9 +5,10 @@ namespace WhiteListApi\Contents;
 class EntityResponse extends Content
 {
     /** @var EntityItem|null */
-    public $result;
+    public ?object $result = null;
 
-    protected function setup()
+
+    protected function setup(): void
     {
         $this->cast('result', EntityItem::class);
     }

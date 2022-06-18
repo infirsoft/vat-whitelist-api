@@ -4,18 +4,13 @@ namespace WhiteListApi\Contents;
 
 class EntityPerson extends Content
 {
-    /** @var string|null */
-    public $companyName;
+    public ?string $companyName = null;
 
-    /** @var string|null */
-    public $firstName;
+    public ?string $firstName = null;
 
-    /** @var string|null */
-    public $lastName;
+    public ?string $lastName = null;
 
-    /** @var string|null */
-    public $pesel;
+    public ?string $pesel = null;
 
-    /** @var string|null */
-    public $nip;
+    public ?string $nip = null;
 }

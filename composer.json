@@ -1,22 +1,23 @@
 {
-  "name": "lozynskiadam/whitelistapi",
-  "description": "API Rejestr WL (wl-api.mf.gov.pl) client",
-  "type" : "library",
-  "authors": [
-    {
-      "name": "Adam Łożyński",
-      "email": "lozynskiadam@gmail.com"
+    "name": "lozynskiadam/whitelistapi",
+    "description": "API Rejestr WL (wl-api.mf.gov.pl) client",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Adam Łożyński",
+            "email": "lozynskiadam@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "WhiteListApi\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.0",
+        "ext-curl": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.3"
     }
-  ],
-  "autoload":{
-    "psr-4": {
-      "WhiteListApi\\": "src/"
-    }
-  },
-  "require": {
-    "php": "^7.1"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "9"
-  }
 }

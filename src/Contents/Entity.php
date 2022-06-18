@@ -4,67 +4,52 @@ namespace WhiteListApi\Contents;
 
 class Entity extends Content
 {
-    /** @var string */
-    public $name;
+    public string $name;
 
-    /** @var string|null */
-    public $nip;
+    public ?string $nip = null;
 
-    /** @var string|null */
-    public $statusVat;
+    public ?string $statusVat = null;
 
-    /** @var string|null */
-    public $regon;
+    public ?string $regon = null;
 
-    /** @var string|null */
-    public $pesel;
+    public ?string $pesel = null;
 
-    /** @var string|null */
-    public $krs;
+    public ?string $krs = null;
 
-    /** @var string|null */
-    public $residenceAddress;
+    public ?string $residenceAddress = null;
 
-    /** @var string|null */
-    public $workingAddress;
+    public ?string $workingAddress = null;
 
     /** @var EntityPerson[]|null */
-    public $representatives;
+    public ?array $representatives = null;
 
     /** @var EntityPerson[]|null */
-    public $authorizedClerks;
+    public ?array $authorizedClerks = null;
 
     /** @var EntityPerson[]|null */
-    public $partners;
+    public ?array $partners = null;
 
-    /** @var string|null */
-    public $registrationLegalDate;
+    public ?string $registrationLegalDate = null;
 
-    /** @var string|null */
-    public $registrationDenialDate;
+    public ?string $registrationDenialDate = null;
 
-    /** @var string|null */
-    public $registrationDenialBasis;
+    public ?string $registrationDenialBasis = null;
 
-    /** @var string|null */
-    public $restorationDate;
+    public ?string $restorationDate = null;
 
-    /** @var string|null */
-    public $restorationBasis;
+    public ?string $restorationBasis = null;
 
-    /** @var string|null */
-    public $removalDate;
+    public ?string $removalDate = null;
 
-    /** @var string|null */
-    public $removalBasis;
+    public ?string $removalBasis = null;
 
     /** @var string[]|null */
-    public $accountNumbers;
+    public ?array $accountNumbers = null;
 
-    /** @var boolean|null */
-    public $hasVirtualAccounts;
+    public ?bool $hasVirtualAccounts = null;
 
-    protected function setup()
+
+    protected function setup(): void
     {
         $this->castArray('representatives', EntityPerson::class);
         $this->castArray('authorizedClerks', EntityPerson::class);

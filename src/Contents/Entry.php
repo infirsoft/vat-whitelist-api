@@ -5,15 +5,16 @@ namespace WhiteListApi\Contents;
 class Entry extends Content
 {
     /** @var string */
-    public $identifier;
+    public string $identifier;
 
     /** @var Entity[]|null */
-    public $subjects;
+    public ?array $subjects = null;
 
     /** @var Error|null */
-    public $error;
+    public ?object $error = null;
 
-    protected function setup()
+
+    protected function setup(): void
     {
         $this->castArray('subjects', Entity::class);
         $this->cast('error', Error::class);

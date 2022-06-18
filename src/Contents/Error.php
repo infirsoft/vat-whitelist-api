@@ -4,9 +4,7 @@ namespace WhiteListApi\Contents;
 
 class Error extends Content
 {
-    /** @var string */
-    public $code;
+    public string $code;
 
-    /** @var string */
-    public $message;
+    public string $message;
 }

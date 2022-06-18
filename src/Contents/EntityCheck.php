@@ -4,12 +4,9 @@ namespace WhiteListApi\Contents;
 
 class EntityCheck extends Content
 {
-    /** @var string|null */
-    public $accountAssigned;
+    public ?string $accountAssigned = null;
 
-    /** @var string|null */
-    public $requestId;
+    public ?string $requestId = null;
 
-    /** @var string|null */
-    public $requestDateTime;
+    public ?string $requestDateTime = null;
 }

@@ -5,15 +5,14 @@ namespace WhiteListApi\Contents;
 class EntryList extends Content
 {
     /** @var Entry[] */
-    public $entries;
+    public array $entries;
 
-    /** @var string|null */
-    public $requestId;
+    public ?string $requestId = null;
 
-    /** @var string|null */
-    public $requestDateTime;
+    public ?string $requestDateTime = null;
 
-    protected function setup()
+
+    protected function setup(): void
     {
         $this->castArray('entries', Entry::class);
     }

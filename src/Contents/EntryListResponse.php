@@ -5,9 +5,10 @@ namespace WhiteListApi\Contents;
 class EntryListResponse extends Content
 {
     /** @var EntryList|null */
-    public $result;
+    public ?object $result = null;
 
-    protected function setup()
+
+    protected function setup(): void
     {
         $this->cast('result', EntryList::class);
     }

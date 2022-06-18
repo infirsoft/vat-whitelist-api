@@ -10,19 +10,26 @@ use WhiteListApi\Contents\Error;
 
 class WhiteListApiClient implements WhiteListApiInterface
 {
-    const API_URL = [
-        'TEST' => 'https://wl-test.mf.gov.pl',
-        'PROD' => 'https://wl-api.mf.gov.pl',
+    public const
+        ENVIRONMENT_TEST = 'TEST',
+        ENVIRONMENT_PROD = 'PROD';
+
+    public const API_URL = [
+        self::ENVIRONMENT_TEST => 'https://wl-test.mf.gov.pl',
+        self::ENVIRONMENT_PROD => 'https://wl-api.mf.gov.pl',
     ];
 
-    private $environment;
+
+    private string $environment;
+
 
     /**
-     * Client constructor.
+     * WhiteList API Client constructor.
+     *
      * @param string $environment
      * @throws WhiteListApiException
      */
-    public function __construct(string $environment = 'PROD')
+    public function __construct(string $environment = self::ENVIRONMENT_PROD)
     {
         if (!array_key_exists($environment, self::API_URL)) {
             throw new WhiteListApiException('Wrong environment');
@@ -31,11 +38,14 @@ class WhiteListApiClient implements WhiteListApiInterface
     }
 
     /**
+     * Searching for entities by account number.
+     * @see https://wl-api.mf.gov.pl/#bankAccount?date
+     *
      * @param string $bankAccount
      * @param string $date
      * @return EntityListResponse|Error
      */
-    public function searchBankAccount(string $bankAccount, string $date)
+    public function searchBankAccount(string $bankAccount, string $date): EntityListResponse|Error
     {
         $pathParams = [
             "{bank-account}" => $bankAccount,
@@ -43,6 +53,7 @@ class WhiteListApiClient implements WhiteListApiInterface
         $queryParams = [
             'date' => $date
         ];
+
         return $this->cast(
             $this->request('GET', '/api/search/bank-account/{bank-account}', $pathParams, $queryParams),
             EntityListResponse::class
@@ -50,11 +61,14 @@ class WhiteListApiClient implements WhiteListApiInterface
     }
 
     /**
+     * Searching for entities by account numbers.
+     * @see https://wl-api.mf.gov.pl/#bankAccounts?date
+     *
      * @param string[] $bankAccounts
      * @param string $date
      * @return EntryListResponse|Error
      */
-    public function searchBankAccounts(array $bankAccounts, string $date)
+    public function searchBankAccounts(array $bankAccounts, string $date): EntryListResponse|Error
     {
         $pathParams = [
             "{bank-accounts}" => implode(',', $bankAccounts),
@@ -62,6 +76,7 @@ class WhiteListApiClient implements WhiteListApiInterface
         $queryParams = [
             'date' => $date
         ];
+
         return $this->cast(
             $this->request('GET', '/api/search/bank-accounts/{bank-accounts}', $pathParams, $queryParams),
             EntryListResponse::class
@@ -69,12 +84,15 @@ class WhiteListApiClient implements WhiteListApiInterface
     }
 
     /**
+     * Checking a single entity by tax identification number and account number.
+     * @see https://wl-api.mf.gov.pl/#checkNip
+     *
      * @param string $nip
      * @param string $bankAccount
      * @param string $date
      * @return EntityCheckResponse|Error
      */
-    public function checkNipBankAccount(string $nip, string $bankAccount, string $date)
+    public function checkNipBankAccount(string $nip, string $bankAccount, string $date): EntityCheckResponse|Error
     {
         $pathParams = [
             "{nip}" => $nip,
@@ -83,6 +101,7 @@ class WhiteListApiClient implements WhiteListApiInterface
         $queryParams = [
             'date' => $date
         ];
+
         return $this->cast(
             $this->request('GET', '/api/check/nip/{nip}/bank-account/{bank-account}', $pathParams, $queryParams),
             EntityCheckResponse::class
@@ -90,12 +109,38 @@ class WhiteListApiClient implements WhiteListApiInterface
     }
 
     /**
+     * Search for a single entity by tax identification number.
+     * @see https://wl-api.mf.gov.pl/#nip?date
+     *
+     * @param string $nip
+     * @param string $date
+     * @return EntityResponse|Error
+     */
+    public function searchNip(string $nip, string $date): EntityResponse|Error
+    {
+        $pathParams = [
+            "{nip}" => $nip
+        ];
+        $queryParams = [
+            'date' => $date
+        ];
+
+        return $this->cast(
+            $this->request('GET', '/api/search/nip/{nip}', $pathParams, $queryParams),
+            EntityResponse::class
+        );
+    }
+
+    /**
+     * Checking a single entity by REGON and account number.
+     * @see https://wl-api.mf.gov.pl/#checkRegon
+     *
      * @param string $regon
      * @param string $bankAccount
      * @param string $date
      * @return EntityCheckResponse|Error
      */
-    public function checkRegonBankAccount(string $regon, string $bankAccount, string $date)
+    public function checkRegonBankAccount(string $regon, string $bankAccount, string $date): EntityCheckResponse|Error
     {
         $pathParams = [
             "{regon}" => $regon,
@@ -104,6 +149,7 @@ class WhiteListApiClient implements WhiteListApiInterface
         $queryParams = [
             'date' => $date
         ];
+
         return $this->cast(
             $this->request('GET', '/api/check/regon/{regon}/bank-account/{bank-account}', $pathParams, $queryParams),
             EntityCheckResponse::class
@@ -111,30 +157,14 @@ class WhiteListApiClient implements WhiteListApiInterface
     }
 
     /**
-     * @param string $nip
-     * @param string $date
-     * @return EntityResponse|Error
-     */
-    public function searchNip(string $nip, string $date)
-    {
-        $pathParams = [
-            "{nip}" => $nip
-        ];
-        $queryParams = [
-            'date' => $date
-        ];
-        return $this->cast(
-            $this->request('GET', '/api/search/nip/{nip}', $pathParams, $queryParams),
-            EntityResponse::class
-        );
-    }
-
-    /**
+     * Searching for entities by tax identification numbers.
+     * @see https://wl-api.mf.gov.pl/#nips?date
+     *
      * @param string[] $nips
      * @param string $date
      * @return EntryListResponse|Error
      */
-    public function searchNips(array $nips, string $date)
+    public function searchNips(array $nips, string $date): EntryListResponse|Error
     {
         $pathParams = [
             "{nips}" => implode(',', $nips)
@@ -142,6 +172,7 @@ class WhiteListApiClient implements WhiteListApiInterface
         $queryParams = [
             'date' => $date
         ];
+
         return $this->cast(
             $this->request('GET', '/api/search/nips/{nips}', $pathParams, $queryParams),
             EntryListResponse::class
@@ -149,11 +180,14 @@ class WhiteListApiClient implements WhiteListApiInterface
     }
 
     /**
+     * Search for a single entity by REGON.
+     * @see https://wl-api.mf.gov.pl/#regon?date
+     *
      * @param string $regon
      * @param string $date
      * @return EntityResponse|Error
      */
-    public function searchRegon(string $regon, string $date)
+    public function searchRegon(string $regon, string $date): EntityResponse|Error
     {
         $pathParams = [
             "{regon}" => $regon
@@ -161,6 +195,7 @@ class WhiteListApiClient implements WhiteListApiInterface
         $queryParams = [
             'date' => $date
         ];
+
         return $this->cast(
             $this->request('GET', '/api/search/regon/{regon}', $pathParams, $queryParams),
             EntityResponse::class
@@ -168,11 +203,14 @@ class WhiteListApiClient implements WhiteListApiInterface
     }
 
     /**
+     * Searching for entities by REGON numbers.
+     * @see https://wl-api.mf.gov.pl/#regons?date
+     *
      * @param string[] $regons
      * @param string $date
      * @return EntryListResponse|Error
      */
-    public function searchRegons(array $regons, string $date)
+    public function searchRegons(array $regons, string $date): EntryListResponse|Error
     {
         $pathParams = [
             "{regons}" => implode(',', $regons)
@@ -180,20 +218,22 @@ class WhiteListApiClient implements WhiteListApiInterface
         $queryParams = [
             'date' => $date
         ];
+
         return $this->cast(
             $this->request('GET', '/api/search/regons/{regons}', $pathParams, $queryParams),
             EntryListResponse::class
         );
     }
 
+
     /**
      * @param string $method
      * @param string $path
      * @param array $pathParams
      * @param array $queryParams
-     * @return bool|mixed|string
+     * @return string
      */
-    private function request(string $method, string $path, array $pathParams, array $queryParams)
+    private function request(string $method, string $path, array $pathParams = [], array $queryParams = []): string
     {
         $url = self::API_URL[$this->environment] . strtr($path, $pathParams);
         $curl = curl_init();
@@ -214,15 +254,11 @@ class WhiteListApiClient implements WhiteListApiInterface
         return $response;
     }
 
-    /**
-     * @param $response
-     * @param $class
-     * @return mixed
-     */
-    private function cast($response, $class)
+    private function cast(string $response, string $class)
     {
-        if (!($decoded = json_decode($response))) return false;
+        if (!($decoded = json_decode($response))) return null;
         $class = (isset($decoded->code) && isset($decoded->message)) ? Error::class : $class;
+
         return new $class($decoded);
     }
 
