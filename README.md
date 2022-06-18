@@ -21,7 +21,7 @@ Supported Versions
 
 | Version | PHP version | HTTP client |
 |---------|-------------|-------------|
-| 2.x     | \>= 8.1     | Guzzle      |
+| 2.x     | \>= 8.0     | cURL        |
 | 1.x     | \>= 7.1     | cURL        |
 
 Methods
