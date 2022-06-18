@@ -1,17 +1,32 @@
-# API Rejestr WL
+API Rejestr WL
+==============
 
 White List API / API Wykazu podatników VAT / Biała lista podatników VAT
 
-### API Docs
+API Docs
+--------
+
 * https://wl-api.mf.gov.pl/
 * https://www.gov.pl/web/kas/api-wykazu-podatnikow-vat
 
-### Installation
+Installation
+------------
+
 ```bash
 composer require lozynskiadam/whitelistapi
 ```
 
-### Methods
+Supported Versions
+------------------
+
+| Version | PHP version | HTTP client |
+|---------|-------------|-------------|
+| 2.x     | \>= 8.1     | Guzzle      |
+| 1.x     | \>= 7.1     | cURL        |
+
+Methods
+------------------
+
 ```php
 searchNip( string $nip , string $date ) : EntityResponse|Error
 searchNips( array $nips , string $date ) : EntryListResponse|Error
@@ -23,7 +38,9 @@ checkNipBankAccount( string $nip , string $bankAccount , string $date ) : Entity
 checkRegonBankAccount( string $regon , string $bankAccount , string $date ) : EntityCheckResponse|Error
 ```
 
-### Usage
+Usage
+------------------
+
 ```php
 <?php
 
