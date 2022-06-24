@@ -12,7 +12,6 @@ abstract class Content
         $this->setup();
     }
 
-
     protected function setup(): void
     {
         // override me
@@ -27,11 +26,12 @@ abstract class Content
 
     protected function castArray(string $field, string $class): void
     {
-        if (is_array($this->$field)) foreach ($this->$field as $k => $v) {
-            if ($this->$field[$k]) {
-                $this->$field[$k] = new $class($this->$field[$k]);
+        if (is_array($this->$field)) {
+            foreach ($this->$field as $k => $v) {
+                if ($this->$field[$k]) {
+                    $this->$field[$k] = new $class($this->$field[$k]);
+                }
             }
         }
     }
-
 }

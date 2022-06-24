@@ -11,7 +11,6 @@ class EntryList extends Content
 
     public ?string $requestDateTime = null;
 
-
     protected function setup(): void
     {
         $this->castArray('entries', Entry::class);

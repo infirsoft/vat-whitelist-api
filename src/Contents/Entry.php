@@ -13,7 +13,6 @@ class Entry extends Content
     /** @var Error|null */
     public ?object $error = null;
 
-
     protected function setup(): void
     {
         $this->castArray('subjects', Entity::class);
