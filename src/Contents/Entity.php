@@ -48,7 +48,6 @@ class Entity extends Content
 
     public ?bool $hasVirtualAccounts = null;
 
-
     protected function setup(): void
     {
         $this->castArray('representatives', EntityPerson::class);

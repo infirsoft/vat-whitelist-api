@@ -11,7 +11,6 @@ class EntityItem extends Content
 
     public ?string $requestDateTime = null;
 
-
     protected function setup(): void
     {
         $this->cast('subject', Entity::class);

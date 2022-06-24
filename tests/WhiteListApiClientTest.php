@@ -808,5 +808,4 @@ class WhiteListApiClientTest extends TestCase
         $this->assertSame('Nazwa Firmy 1', $response->result->entries[0]->subjects[0]->name);
         $this->assertSame('3245174504', $response->result->entries[0]->subjects[0]->nip);
     }
-
 }

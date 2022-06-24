@@ -11,7 +11,6 @@ class EntityList extends Content
 
     public ?string $requestDateTime = null;
 
-
     protected function setup(): void
     {
         $this->castArray('subjects', Entity::class);
