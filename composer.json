@@ -1,5 +1,5 @@
 {
-    "name": "lozynskiadam/whitelistapi",
+    "name": "infirsoft/whitelistapi",
     "description": "API Rejestr WL (wl-api.mf.gov.pl) client",
     "type": "library",
     "license": "MIT",
