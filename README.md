@@ -1,9 +1,9 @@
 API Rejestr WL
 ==============
 
-[![License](https://img.shields.io/packagist/l/lozynskiadam/whitelistapi?color=blue)](./LICENSE.md)
-[![Version](https://img.shields.io/packagist/v/lozynskiadam/whitelistapi?color=blue)](https://packagist.org/packages/lozynskiadam/whitelistapi)
-[![Downloads](https://img.shields.io/packagist/dt/lozynskiadam/whitelistapi?color=blue)](https://packagist.org/packages/lozynskiadam/whitelistapi)
+[![License](https://img.shields.io/packagist/l/infirsoft/whitelistapi?color=blue)](./LICENSE.md)
+[![Version](https://img.shields.io/packagist/v/infirsoft/whitelistapi?color=blue)](https://packagist.org/packages/infirsoft/whitelistapi)
+[![Downloads](https://img.shields.io/packagist/dt/infirsoft/whitelistapi?color=blue)](https://packagist.org/packages/infirsoft/whitelistapi)
 [![StyleCI](https://github.styleci.io/repos/338450280/shield?style=flat&branch=main)](https://github.styleci.io/repos/338450280?branch=main)
 
 White List API / API Wykazu podatników VAT / Biała lista podatników VAT
@@ -18,7 +18,7 @@ Installation
 ------------
 
 ```bash
-composer require lozynskiadam/whitelistapi
+composer require infirsoft/whitelistapi
 ```
 
 Supported Versions
